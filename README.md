@@ -64,4 +64,8 @@ ARGS:
     <FILES>...
 ```
 
+## License
+Distributed under the terms of the [MIT license][license].
+
 [amethyst]: https://github.com/amethyst/amethyst
+[license]:  ./LICENSE
