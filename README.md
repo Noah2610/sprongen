@@ -4,15 +4,25 @@
 `Gen`erator
 
 ## Description
-Generates spritesheet config RON files for your spritesheet PNG images.  
-The spritesheet configs are generated for the `amethyst` engine.  
-Generated RON files are placed next to the corresponding PNG image file.
+Generates RON spritesheet config files for your spritesheet PNG images.  
+The spritesheet configs are generated in the format used by the [`amethyst`][amethyst] engine.  
+Generated RON files are placed next to the corresponding PNG image file. __(TODO: make this configurable)__
 
 ## Installation
-After cloning the parent `deathfloor` repo,  
-you can install it locally using `cargo` with ...
+### From [crates.io]
+__TODO: publish to crates.io__
 ```
-cargo install --force --path ./deathfloor/sprongen
+cargo install sprongen
+```
+
+### From source
+Clone this repo ...
+```
+git clone https://github.com/Noah2610/sprongen
+```
+Install with `cargo` ...
+```
+cargo install --path sprongen/ --force
 ```
 
 ## Usage
@@ -52,5 +62,6 @@ OPTIONS:
 
 ARGS:
     <FILES>...
-
 ```
+
+[amethyst]: https://github.com/amethyst/amethyst
