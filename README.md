@@ -64,8 +64,56 @@ ARGS:
     <FILES>...
 ```
 
+## Examples
+Let's say we have a directory `spritesheets/` in which we have a bunch of  
+PNG spritesheet images, for which we want to create RON config files.  
+Our file structure may look something like this ...
+```
+spritesheets/
+├── player.png
+└── tiles.png
+```
+
+Some meta details about our example spritesheets:
+- `player.png`  
+  Sprites in this image all have the size `32x64` pixels.
+- `tiles.png`  
+  Sprites/tiles in this image all have the size `16x16` pixels.
+
+Now, we want to generate RON config files, which we will use in our [`amethyst`][amethyst] game.  
+These config files need to define each sprite's position and size in our spritesheets.
+
+To generate the RON files, keeping our details listed above in mind, use `sprongen` like so ...
+```
+sprongen -vp --tile-size 32x64 spritesheets/player.png
+sprongen -vp --tile-size 16x16 spritesheets/tiles.png
+```
+
+<details>
+<summary>Explanation of used command-line options</summary>
+
+- `-s` or `--tile-size`  
+  Sets the target tile size, as we defined above.  
+  For this example, this is the only necessary option.
+- `-v` or `--verbose`  
+  _Verbose logging_, outputs information about what's happening.
+- `-p` or `--pretty`  
+  _Pretty formatting_, generated RON files have pretty formatting,  
+  containing new-lines and spacing for human-readability.
+</details>
+
+After this, our new file structure would look something like this ...
+```
+spritesheets/
+├── player.png
+├── player.ron
+├── tiles.png
+└── tiles.ron
+```
+
 ## License
 Distributed under the terms of the [MIT license][license].
 
-[amethyst]: https://github.com/amethyst/amethyst
-[license]:  ./LICENSE
+[amethyst]:  https://github.com/amethyst/amethyst
+[crates.io]: https://crates.io/crates/sprongen
+[license]:   ./LICENSE
