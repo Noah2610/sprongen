@@ -4,6 +4,11 @@ version = "0.0.0"
 authors = ["Noah Rosenzweig <rosenzweig.noah@gmail.com>"]
 edition = "2018"
 description = "Generate RON files for the given spritesheet PNG images"
+repository = "https://github.com/Noah2610/sprongen"
+readme = "README.md"
+keywords = ["spritesheet", "cli"]
+categories = ["command-line-utilities"]
+license = "MIT"
 
 [dependencies]
 png = "0.15.3"
