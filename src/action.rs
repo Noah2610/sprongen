@@ -15,9 +15,10 @@ impl Action {
             Self::default()
         } else {
             let generate_options = GenerateOptions {
-                verbose:   opts.verbose,
-                pretty:    opts.pretty,
-                tile_size: opts.tile_size,
+                verbose:          opts.verbose,
+                pretty:           opts.pretty,
+                tile_size:        opts.tile_size,
+                amethyst_version: opts.amethyst_version,
             };
             Action::Gen(opts.files, generate_options)
         })

@@ -1,3 +1,4 @@
+use crate::opts::AmethystVersion;
 use crate::{PngData, Size};
 use std::fs;
 use std::io::Write;
@@ -57,9 +58,10 @@ impl From<PngData> for SpritesheetData {
 struct RonWrapper(SpritesheetData);
 
 pub struct GenerateOptions {
-    pub verbose:   bool,
-    pub tile_size: Size,
-    pub pretty:    bool,
+    pub verbose:          bool,
+    pub tile_size:        Size,
+    pub pretty:           bool,
+    pub amethyst_version: AmethystVersion,
 }
 
 pub fn generate_rons_for_pngs(
@@ -76,6 +78,10 @@ pub fn generate_rons_for_pngs(
             } else {
                 "FALSE"
             }
+        );
+        eprintln!(
+            "Generate for amethyst version: {}",
+            generate_options.amethyst_version
         );
     }
 
@@ -105,18 +111,37 @@ pub fn generate_rons_for_pngs(
         let mut spritesheet_data = SpritesheetData::from(png_data);
         spritesheet_data.gen_sprites_with_tile_size(generate_options.tile_size);
 
-        // TODO: add command-line flag to set if this wrapper should be used or not
-        let wrapper = RonWrapper(spritesheet_data);
-
         let ron_s = {
             let ser_err_fn =
                 |e| format!("Couldn't serialize spritesheet data: {}", e);
-            if generate_options.pretty {
-                let pretty_config = ron::ser::PrettyConfig::default();
-                ron::ser::to_string_pretty(&wrapper, pretty_config)
-                    .map_err(ser_err_fn)?
-            } else {
-                ron::ser::to_string(&wrapper).map_err(ser_err_fn)?
+
+            match generate_options.amethyst_version {
+                AmethystVersion::_0_13 => {
+                    if generate_options.pretty {
+                        let pretty_config = ron::ser::PrettyConfig::default();
+                        ron::ser::to_string_pretty(
+                            &spritesheet_data,
+                            pretty_config,
+                        )
+                        .map_err(ser_err_fn)?
+                    } else {
+                        ron::ser::to_string(&spritesheet_data)
+                            .map_err(ser_err_fn)?
+                    }
+                }
+                AmethystVersion::Master => {
+                    let wrapper = RonWrapper(spritesheet_data);
+                    String::from("List")
+                        + if generate_options.pretty {
+                            let pretty_config =
+                                ron::ser::PrettyConfig::default();
+                            ron::ser::to_string_pretty(&wrapper, pretty_config)
+                                .map_err(ser_err_fn)?
+                        } else {
+                            ron::ser::to_string(&wrapper).map_err(ser_err_fn)?
+                        }
+                        .as_str()
+                }
             }
         };
 
