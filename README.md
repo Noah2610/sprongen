@@ -10,7 +10,6 @@ Generated RON files are placed next to the corresponding PNG image file. __(TODO
 
 ## Installation
 ### From [crates.io]
-__TODO: publish to crates.io__
 ```
 cargo install sprongen
 ```
@@ -31,7 +30,7 @@ sprongen --help
 ```
 
 ```
-sprongen 0.0.0
+sprongen 0.0.1
 Generate RON files for the given spritesheet PNG images
 
 USAGE:
