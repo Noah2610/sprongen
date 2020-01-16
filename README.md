@@ -30,7 +30,7 @@ sprongen --help
 ```
 
 ```
-sprongen 0.0.1
+sprongen 0.0.2
 Generate RON files for the given spritesheet PNG images
 
 USAGE:
@@ -54,6 +54,12 @@ FLAGS:
             printed to stderr.
 
 OPTIONS:
+    -A, --amethyst-version <amethyst-version>
+            For which amethyst version to generate the RON files.
+
+            Since after amethyst v0.13, amethyst reads spritesheet RON config files differently. See
+            https://github.com/amethyst/amethyst/issues/1997 `sprongen` can generate the v0.13, and the master RON
+            format. <amethyst-version> must be one of: "0.13", "master" [default: 0.13]
     -s, --tile-size <tile-size>
             Use the given tile size.
 
